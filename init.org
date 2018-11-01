@@ -177,7 +177,6 @@
              focus                ; Dim color of text in surrounding sections
              idle-require         ; load elisp libraries while Emacs is idle
              geiser               ; GNU Emacs and Scheme talk to each other
-             git-gutter-fringe    ; Fringe version of git-gutter.el
              golden-ratio         ; Automatic resizing windows to golden ratio
              haskell-mode         ; A Haskell editing mode
              helm                 ; Incremental and narrowing framework
@@ -362,7 +361,6 @@
    #+BEGIN_SRC emacs-lisp
    (dolist (mode
             '(tool-bar-mode                ; No toolbars, more room for text
-              scroll-bar-mode              ; No scroll bars either
               blink-cursor-mode))          ; The blinking cursor gets old
      (funcall mode 0))
    #+END_SRC
@@ -378,7 +376,6 @@
               dirtrack-mode                ; directory tracking in *shell*
               drag-stuff-global-mode       ; Drag stuff around
               global-company-mode          ; Auto-completion everywhere
-              global-git-gutter-mode       ; Show changes latest commit
               global-prettify-symbols-mode ; Greek letters should look greek
               projectile-global-mode       ; Manage and navigate projects
               recentf-mode                 ; Recently opened files
@@ -449,15 +446,6 @@
 
    I smuggled some configurations from [[https://github.com/torenord/.emacs.d/][torenord]], providing a cleaner look.
 
-   #+BEGIN_SRC emacs-lisp
-   (require 'git-gutter-fringe)
-
-   (dolist (p '((git-gutter:added    . "#0c0")
-                (git-gutter:deleted  . "#c00")
-                (git-gutter:modified . "#c0c")))
-     (set-face-foreground (car p) (cdr p))
-     (set-face-background (car p) (cdr p)))
-   #+END_SRC
 
    New in Emacs 24.4 is the =prettify-symbols-mode=! It's neat.
 

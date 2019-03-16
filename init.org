@@ -218,14 +218,15 @@
 
 *** pbcopy.el allows cut-paste from emacs into other apps
 
-    ;; http://mindlev.wordpress.com/2011/06/13/emacs-in-a-terminal-on-osx/
-    ;; wget -P ~/.elisp https://gist.github.com/daniel-nelson/1023272/raw/7b0db196d1184e3a2f43b31c601c415f1d41830f/pbcopy.el
+    http://mindlev.wordpress.com/2011/06/13/emacs-in-a-terminal-on-osx/
+    wget -P ~/.elisp https://gist.github.com/daniel-nelson/1023272/raw/7b0db196d1184e3a2f43b31c601c415f1d41830f/pbcopy.el
 
-   #+BEGIN_SRC emacs-lisp
-   (require 'pbcopy)
-   (turn-on-pbcopy)
-   #+END_SRC
+    #+BEGIN_SRC emacs-lisp
+    (require 'pbcopy)
+    (turn-on-pbcopy)
+    #+END_SRC
 
+    
 *** 
 
    I run this configuration mostly on Mac OS X, so we need a couple of
@@ -834,7 +835,7 @@
 
    To duplicate either selected text or a line we define this interactive
    function.
-
+   
    #+BEGIN_SRC emacs-lisp
    (defun duplicate-thing (comment)
      "Duplicates the current line, or the region if active. If an argument is
@@ -849,7 +850,7 @@
          (insert (buffer-substring start end))
          (when comment (comment-region start end)))))
    #+END_SRC
-
+   
    To tidy up a buffer we define this function borrowed from [[https://github.com/simenheg][simenheg]].
 
    #+BEGIN_SRC emacs-lisp
@@ -881,6 +882,26 @@
           (cl-find headline (pdf-info-outline pdf)
                    :key (lambda (alist) (cdr (assoc 'title alist)))
                    :test 'string-equal)))))
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+   (defun tm-dir-shell-here()
+     (interactive)
+     (let ((cbuff (buffer-name))
+   	(cdcmd (concat "cd \'" (expand-file-name (file-name-as-directory default-directory)) "\'")))
+       (progn
+         (shell)
+         (goto-char (point-max))
+         (move-beginning-of-line 1)
+         (insert "# ") (comint-send-input)
+         (goto-char (point-max))
+         (insert cdcmd) (comint-send-input)
+         ;; it seems better not to split window and switch
+         ;; (switch-to-buffer-other-window cbuff)
+         ;; (other-window 1)
+         (kill-new cbuff)
+         )))
+   (global-set-key "e" (quote tm-dir-shell-here))
    #+END_SRC
 
 ** Advice
